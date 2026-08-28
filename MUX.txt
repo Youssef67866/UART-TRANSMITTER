@@ -1,0 +1,19 @@
+module output_mux (
+    input       s_data,
+    input [1:0] mode_sel,
+    output reg  tx_line
+);
+
+    parameter MUX_MARK  = 2'b00;
+    parameter MUX_SHIFT = 2'b01;
+    parameter MUX_BREAK = 2'b10;
+
+    always @(*) begin
+        case (mode_sel)
+            MUX_SHIFT: tx_line = s_data;
+            MUX_BREAK: tx_line = 1'b0;
+            default:   tx_line = 1'b1;
+        endcase
+    end
+
+endmodule
